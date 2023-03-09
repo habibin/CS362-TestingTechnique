@@ -65,7 +65,7 @@ def conv_endian(num, endian='big'):
     if len(byte_list) % 2 != 0:
         byte_list.append('0')
 
-    #convert the byte list to an endian string
+    # convert the byte list to an endian string
     end_string = make_end_str(byte_list)
 
     # convert to little endian by creating string with original list
@@ -88,7 +88,7 @@ def make_end_str(list_of_bytes):
         if counter == 2:
             counter = 0
             end_string += " "
-    return(end_string)
+    return end_string
 
 
 def convert_little_end(big_str):
