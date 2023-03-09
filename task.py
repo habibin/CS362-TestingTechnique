@@ -11,7 +11,7 @@ def my_datetime(num_sec):
     curr_day = 1
     curr_year = 1970
     month_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
-                 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+                  7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
     days_in_month = month_dict[curr_month]
     # add days until we get to the target date
     while num_days != 0:
@@ -50,7 +50,7 @@ def conv_endian(num, endian='big'):
     byte_list = []
     negative = False
     hex_table = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8',
-                9: '9', 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
+                 9: '9', 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
     remainder = -1
     if num < 0:
         negative = True
