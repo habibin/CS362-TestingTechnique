@@ -11,7 +11,7 @@ def my_datetime(num_sec):
     curr_day = 1
     curr_year = 1970
     month_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
-                  7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+                 7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
     days_in_month = month_dict[curr_month]
     # add days until we get to the target date
     while num_days != 0:
