@@ -65,28 +65,39 @@ def conv_endian(num, endian='big'):
     if len(byte_list) % 2 != 0:
         byte_list.append('0')
 
-    byte_list.reverse()
-    counter = 0
-    end_string = ""
-    for i in range(len(byte_list)):
-        end_string += byte_list[i]
-        counter += 1
-        if counter == 2:
-            counter = 0
-            end_string += " "
+    #convert the byte list to an endian string
+    end_string = make_end_str(byte_list)
 
     # convert to little endian by creating string with original list
     if endian == 'little':
-        temp_str = ""
-        counter = -3
-        last_pos = None
-        while abs(counter) <= len(end_string):
-            temp_str += end_string[counter:last_pos]
-            last_pos = counter
-            counter -= 3
-        end_string = temp_str
+        end_string = convert_little_end(end_string)
 
     # add a negative sign to the front if the original number was negative
     if negative:
         end_string = "-" + end_string
     return end_string
+
+
+def make_end_str(list_of_bytes):
+    list_of_bytes.reverse()
+    counter = 0
+    end_string = ""
+    for i in range(len(list_of_bytes)):
+        end_string += list_of_bytes[i]
+        counter += 1
+        if counter == 2:
+            counter = 0
+            end_string += " "
+    return(end_string)
+
+
+def convert_little_end(big_str):
+    temp_str = ""
+    counter = -3
+    last_pos = None
+    while abs(counter) <= len(big_str):
+        temp_str += big_str[counter:last_pos]
+        last_pos = counter
+        counter -= 3
+    big_str = temp_str
+    return big_str
