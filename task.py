@@ -1,12 +1,119 @@
 def conv_num(num_str):
+    """function takes in a string and converts it into a base 10 number, and returns it"""
 
-    return num_str
+    index = 0
+    # checks if there is a negative in first index
+    if num_str[0] == "-":
+        index = 1
+    # checks if string is a hexadecimal by seeing if it starts with 0x
+    if num_str[index] == "0":
+        if num_str[index + 1] == "x":
+            # the index tells the function helper where to stop converting the index in the string
+            index += 1
+            # function helper is called when the string is a hexadecimal
+            return hex_check(num_str, index)
+    # function helper will check if string is a float then it will convert it
+    return float_check(num_str, index)
+
+
+def hex_check(num_str, index):
+    # dictionary key=hex:value=decimal
+    base_16 = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
+               '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15}
+
+    exp = 0  # exponent that will be raised to the base 16
+    total = 0  # will keep track of the total when each index in the string is added
+
+    # loops from the last position in the string to index in reverse
+    for pos in range((len(num_str) - 1), index, -1):
+        # sets the value of the string position to the dictionary key
+        key = num_str[pos]
+        # checks if the key is in dictionary
+        if key in base_16:
+            # finds the value the key is paired to
+            value = base_16[key]
+            # multiplies the value with the base 16
+            count = value * 16 ** exp
+            # updates total count
+            total += count
+            # increments the exponent by 1
+            exp += 1
+        # if the key is not found in the dictionary, returns None value
+        else:
+            return None
+    # if the index==2, that means the number is negative.
+    if index == 2:
+        return -total
+    # otherwise, it will return the positive value
+    else:
+        return total
+
+
+def float_check(num_str, index):
+    # dictionary key=str:value=float
+    digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+
+    exp = 0  # exponent that will be raised to the base 10
+    total = 0  # will keep track of the total when each index in the string is added
+    dec_count = 0  # if a decimal is present, at the end total * 10**dec_count
+    decimal_check = 'no'  # Once decimal is found, variable will be set to "yes" so there isn't
+    # 2 decimals in the string
+
+    # loops from the last position in the string to index in reverse
+    for pos in range((len(num_str) - 1), index - 1, -1):
+        # sets the value of the string position to the dictionary key
+        key = num_str[pos]
+        # checks if the key is a decimal
+        if key == '.':
+            # checks if there's already been a decimal
+            if decimal_check == 'no':
+                # changes variable to yes, so if another decimal is found, it will return None
+                decimal_check = 'yes'
+                # finds where the decimal should be placed in the float
+                dec_count = (pos + 1) - len(num_str)
+                # if the decimal was the last index in the string, it adds .0
+                if dec_count == 0:
+                    total += .0
+                continue
+        # checks if the key is in dictionary
+        if key in digits:
+            # finds the value the key is paired to
+            value = digits[key]
+            # multiplies the value with the base 10
+            count = value * 10 ** exp
+            # updates total count
+            total += count
+            # increments the exponent by 1
+            exp += 1
+        # if the key is not found in the dictionary, returns None value
+        else:
+            return None
+    # if there was a decimal, it will place it into the float
+    total = total * 10 ** dec_count
+    # if the index==1, that means the number is negative.
+    if index == 1:
+        return -total
+    # otherwise, it will return the positive value
+    else:
+        return total
+
+# TESTS TO I RAN
+# print(conv_num('12345'), type(conv_num('12345')))
+# print(conv_num('-123.45'), type(conv_num('-123.45')))
+# print(conv_num('.45'), type(conv_num('.45')))
+# print(conv_num('123.'), type(conv_num('123.')))
+# print(conv_num('0xAD4'),type(conv_num('0xAD4')))
+# print(conv_num('0xFF.02'),type(conv_num('0xFF.02')))
+# print(conv_num('0xAZ4'))
+# print(conv_num('-0xFF'), type(conv_num('-0xFF')))
+# print(conv_num('12345A'))
+# print(conv_num('12.3.45'))
 
 
 def my_datetime(num_sec):
     # convert the given number of seconds into number of days
     num_days = int(((num_sec / 60) / 60) / 24)
-    # initalize the starting date and dictionary of how many days are in each month
+    # initialize the starting date and dictionary of how many days are in each month
     curr_month = 1
     curr_day = 1
     curr_year = 1970
@@ -51,7 +158,6 @@ def conv_endian(num, endian='big'):
     negative = False
     hex_table = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8',
                  9: '9', 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
-    remainder = -1
     if num < 0:
         negative = True
     num = abs(num)
