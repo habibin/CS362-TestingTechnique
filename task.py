@@ -61,7 +61,6 @@ def float_check(num_str, index):
 
     total = 0
     before_dec = .0  # will keep track of the total when each index in the string is added
-    after_dec = 0
     dec_count = dec_check(num_str, index)  # if a decimal is present, at the end total * 10**dec_count
     decimal_check = 'no'  # Once decimal is found, variable will be set to "yes" so there isn't
     # 2 decimals in the string
