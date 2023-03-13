@@ -35,6 +35,24 @@ class TestCase(unittest.TestCase):
             rand_choice = random.choice([random_pos_hex.upper(), random_pos_hex.lower(), random_neg_hex.upper(),
                                          random_neg_hex.lower(), dec_hex, letter_hex])
 
+            conv_num(rand_choice)
+
+            # print(rand_choice, type(rand_choice), conv_num(rand_choice), type(conv_num(rand_choice)))
+
+    def test2(self):
+        # tests float numbers as strings
+        for count in range(100):
+            # creates positive and negative float numbers
+            random_num = str(random.uniform(-100000, 1000000))
+
+            # inserts a decimal in the float.
+            string_length = len(random_num)
+            dec_position = random.randint(0, string_length + 1)
+            dec_float = random_num[:dec_position] + '.' + random_num[dec_position:]
+
+            # random choice chooses one of the options randomly to test
+            rand_choice = random.choice([random_num, dec_float])
+
             print(rand_choice, type(rand_choice), conv_num(rand_choice), type(conv_num(rand_choice)))
 
 

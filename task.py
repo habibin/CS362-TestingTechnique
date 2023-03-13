@@ -1,6 +1,10 @@
 def conv_num(num_str):
     """function takes in a string and converts it into a base 10 number, and returns it"""
 
+    # returns None if num_str is not string type of if it is empty string
+    if type(num_str) != str or num_str == '':
+        return None
+
     index = 0
     # checks if there is a negative in first index
     if num_str[0] == "-":
@@ -97,21 +101,6 @@ def float_check(num_str, index):
     # otherwise, it will return the positive value
     else:
         return total
-
-
-# TESTS TO I RAN
-# print(conv_num('-0.7633603839461802'), type(conv_num('-0.7633603839461802')))
-# print(conv_num('12345'), type(conv_num('12345')))
-# print(conv_num('-123.45'), type(conv_num('-123.45')))
-# print(conv_num('.45'), type(conv_num('.45')))
-# print(conv_num('123.'), type(conv_num('123.')))
-# print(conv_num('0xAD4'),type(conv_num('0xAD4')))
-# print(conv_num('0xFF.02'),type(conv_num('0xFF.02')))
-# print(conv_num('0xAZ4'))
-# print(conv_num('-0xFF'), type(conv_num('-0xFF')))
-# print(conv_num('12345A'))
-# print(conv_num('12.3.45'))
-print(conv_num('0XAd4'), type(conv_num('0XAd4')))
 
 
 def my_datetime(num_sec):
