@@ -94,13 +94,17 @@ def float_check(num_str, index):
         else:
             return None
     # if there was a decimal, it will place it into the float
-    total = total * 10 ** dec_count
+    total = total * pow(10, dec_count)
     # if the index==1, that means the number is negative.
     if index == 1:
         return -total
     # otherwise, it will return the positive value
     else:
         return total
+
+
+print(conv_num('922850.69337526296933752629'))
+print(conv_num('922850.6933752625'))
 
 
 def my_datetime(num_sec):
