@@ -1,6 +1,6 @@
 from task import conv_num
 import random
-
+import string
 import unittest
 
 
@@ -35,23 +35,30 @@ class TestCase(unittest.TestCase):
             rand_choice = random.choice([random_pos_hex.upper(), random_pos_hex.lower(), random_neg_hex.upper(),
                                          random_neg_hex.lower(), dec_hex, letter_hex])
 
-            conv_num(rand_choice)
-
-            # print(rand_choice, type(rand_choice), conv_num(rand_choice), type(conv_num(rand_choice)))
+            print(rand_choice, type(rand_choice), conv_num(rand_choice), type(conv_num(rand_choice)))
 
     def test2(self):
         # tests float numbers as strings
         for count in range(100):
             # creates positive and negative float numbers
-            random_num = str(random.uniform(-99999999, 99999999))
+            random_float = str(random.uniform(-99999999, 99999999))
+
+            random_int = str(random.randint(-99999999, 99999999))
 
             # inserts a decimal in the float.
-            string_length = len(random_num)
+            string_length = len(random_float)
             dec_position = random.randint(0, string_length + 1)
-            dec_float = random_num[:dec_position] + '.' + random_num[dec_position:]
+            dec_float = random_float[:dec_position] + '.' + random_float[dec_position:]
+
+            # inserted a letter at random position
+            choice1 = random.choice([random_float, random_int])
+            string_length = len(choice1)
+            dec_position = random.randint(0, string_length + 1)
+            letter = random.choice(string.ascii_letters)
+            letter_number = choice1[:dec_position] + letter + choice1[dec_position:]
 
             # random choice chooses one of the options randomly to test
-            rand_choice = random.choice([random_num, dec_float])
+            rand_choice = random.choice([random_float, dec_float, random_int, letter_number, '', 1])
 
             print(rand_choice, type(rand_choice), conv_num(rand_choice), type(conv_num(rand_choice)))
 
