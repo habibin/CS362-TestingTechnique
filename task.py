@@ -7,7 +7,7 @@ def conv_num(num_str):
         index = 1
     # checks if string is a hexadecimal by seeing if it starts with 0x
     if num_str[index] == "0":
-        if num_str[index + 1] == "x":
+        if num_str[index + 1].lower() == "x":
             # the index tells the function helper where to stop converting the index in the string
             index += 1
             # function helper is called when the string is a hexadecimal
@@ -26,8 +26,9 @@ def hex_check(num_str, index):
 
     # loops from the last position in the string to index in reverse
     for pos in range((len(num_str) - 1), index, -1):
-        # sets the value of the string position to the dictionary key
-        key = num_str[pos]
+        # sets the value of the string position to the dictionary key and use
+        # upper() so that it is case-insensitive.
+        key = num_str[pos].upper()
         # checks if the key is in dictionary
         if key in base_16:
             # finds the value the key is paired to
@@ -97,7 +98,9 @@ def float_check(num_str, index):
     else:
         return total
 
+
 # TESTS TO I RAN
+# print(conv_num('-0.7633603839461802'), type(conv_num('-0.7633603839461802')))
 # print(conv_num('12345'), type(conv_num('12345')))
 # print(conv_num('-123.45'), type(conv_num('-123.45')))
 # print(conv_num('.45'), type(conv_num('.45')))
@@ -108,6 +111,7 @@ def float_check(num_str, index):
 # print(conv_num('-0xFF'), type(conv_num('-0xFF')))
 # print(conv_num('12345A'))
 # print(conv_num('12.3.45'))
+print(conv_num('0XAd4'), type(conv_num('0XAd4')))
 
 
 def my_datetime(num_sec):
