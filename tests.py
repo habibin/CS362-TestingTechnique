@@ -43,7 +43,7 @@ class TestCase(unittest.TestCase):
         # tests float numbers as strings
         for count in range(100):
             # creates positive and negative float numbers
-            random_num = str(random.uniform(-100000, 1000000))
+            random_num = str(random.uniform(-99999999, 99999999))
 
             # inserts a decimal in the float.
             string_length = len(random_num)

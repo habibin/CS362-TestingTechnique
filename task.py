@@ -55,17 +55,19 @@ def hex_check(num_str, index):
 
 
 def float_check(num_str, index):
+
     # dictionary key=str:value=float
     digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
 
-    exp = 0  # exponent that will be raised to the base 10
-    total = 0  # will keep track of the total when each index in the string is added
-    dec_count = 0  # if a decimal is present, at the end total * 10**dec_count
+    total = 0
+    before_dec = .0  # will keep track of the total when each index in the string is added
+    after_dec = 0
+    dec_count = dec_check(num_str, index)  # if a decimal is present, at the end total * 10**dec_count
     decimal_check = 'no'  # Once decimal is found, variable will be set to "yes" so there isn't
     # 2 decimals in the string
 
     # loops from the last position in the string to index in reverse
-    for pos in range((len(num_str) - 1), index - 1, -1):
+    for pos in range(index, (len(num_str))):
         # sets the value of the string position to the dictionary key
         key = num_str[pos]
         # checks if the key is a decimal
@@ -75,26 +77,24 @@ def float_check(num_str, index):
                 # changes variable to yes, so if another decimal is found, it will return None
                 decimal_check = 'yes'
                 # finds where the decimal should be placed in the float
-                dec_count = (pos + 1) - len(num_str)
-                # if the decimal was the last index in the string, it adds .0
-                if dec_count == 0:
-                    total += .0
+                before_dec = total
+                total = 0.0
                 continue
         # checks if the key is in dictionary
         if key in digits:
             # finds the value the key is paired to
             value = digits[key]
             # multiplies the value with the base 10
-            count = value * 10 ** exp
+            count = value * 10 ** dec_count
             # updates total count
             total += count
             # increments the exponent by 1
-            exp += 1
+            dec_count -= 1
         # if the key is not found in the dictionary, returns None value
         else:
             return None
-    # if there was a decimal, it will place it into the float
-    total = total * pow(10, dec_count)
+    if before_dec != 0:
+        total = total + before_dec
     # if the index==1, that means the number is negative.
     if index == 1:
         return -total
@@ -103,8 +103,23 @@ def float_check(num_str, index):
         return total
 
 
-print(conv_num('922850.69337526296933752629'))
-print(conv_num('922850.6933752625'))
+def dec_check(num_str, index):
+    dec_count = -1
+    for pos in range(index, len(num_str)):
+        if num_str[pos] != '.':
+            dec_count += 1
+        if num_str[pos] == '.':
+            return dec_count
+    else:
+        return dec_count
+
+
+# print(conv_num('922850.6933752629'))
+# print(conv_num('922850.6933752625'))
+# print(conv_num('828359.983897676'))
+# print(conv_num('-828359.983893'))
+# print(conv_num('-828.0'))
+# print(conv_num('-82.8.0'))
 
 
 def my_datetime(num_sec):
