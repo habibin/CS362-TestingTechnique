@@ -103,6 +103,7 @@ def float_check(num_str, index):
             return None
     if before_dec != 0:
         total = total + before_dec
+    total = round(total, len(num_str)-1)
     # if the index==1, that means the number is negative.
     if index == 1:
         return -total
@@ -118,16 +119,8 @@ def dec_check(num_str, index):
             dec_count += 1
         if num_str[pos] == '.':
             return dec_count
-    else:
-        return dec_count
+    return dec_count
 
-
-# print(conv_num('922850.6933752629'))
-# print(conv_num('922850.6933752625'))
-# print(conv_num('828359.983897676'))
-# print(conv_num('-828359.983893'))
-# print(conv_num('-828.0'))
-# print(conv_num('-82.8.0'))
 
 
 def my_datetime(num_sec):

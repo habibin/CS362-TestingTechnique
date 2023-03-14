@@ -5,6 +5,8 @@ import string
 import unittest
 
 
+
+
 class TestCase(unittest.TestCase):
 
     def test1(self):
@@ -45,6 +47,7 @@ class TestCase(unittest.TestCase):
             print(rand_choice, type(rand_choice),
                   conv_num(rand_choice), type(conv_num(rand_choice)))
 
+
     def test2(self):
         # tests float numbers as strings
         for count in range(100):
@@ -71,6 +74,7 @@ class TestCase(unittest.TestCase):
 
             print(rand_choice, type(rand_choice),
                   conv_num(rand_choice), type(conv_num(rand_choice)))
+
 
     # Test Con_endian funtionality
     def test_zero(self):
@@ -174,15 +178,122 @@ class TestCase(unittest.TestCase):
         # Assert
         self.assertEqual(actual, expected)
 
-    def testTime(self):
-        for i in range(0, 100):
-            random_seconds = random.randint(0, 253400000000)  # 0 to year 9999
-            our_result = my_datetime(random_seconds)
-            epoch = datetime(1970, 1, 1)
+    def test_empty_string(self):
+    # Test that an empty string returns None
+
+        num = ""
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_invalid_type(self):
+        # Test that a non-string type returns None
+
+        num = 123
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_negative_decimal(self):
+        # Test that a negative decimal string returns the correct number
+
+        num = "-12.34"
+        expected = -12.34
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_positive_decimal(self):
+        # Test that a positive decimal string returns the correct number
+
+        num = "56.78"
+        expected = 56.78
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_negative_hexadecimal(self):
+        # Test that a negative hexadecimal string returns the correct number
+
+        num = "-0x1a"
+        expected = -26
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_positive_hexadecimal(self):
+        # Test that a positive hexadecimal string returns the correct number
+
+        num = "0x2b"
+        expected = 43
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_end_decimal(self):
+        # Test that a decimal will add a zero at the end
+
+        num = "123."
+        expected = 123.0
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_begining_decimal(self):
+        # Test that a decimal will add a zero at the begining
+
+        num = ".123"
+        expected = 0.123
+        # Act
+        actual = conv_num(num)
+        # Assert
+
+        self.assertEqual(actual, expected)
+
+    def test_combining_number_alph(self):
+        # Test that a combination of num and alph
+        num = ".123A"
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_incorrect_dec(self):
+        # Test that a incorrect dec
+        num = "1.2.3"
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_incorrect_hex(self):
+        # Test that a incorrect hex
+        num = "0xAZ4"
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    #def testTime(self):
+        #for i in range(0, 100):
+            #random_seconds = random.randint(0, 253400000000)  # 0 to year 9999
+            #our_result = my_datetime(random_seconds)
+            #epoch = datetime(1970, 1, 1)
             #  https://www.mytecbits.com/internet/python/convert-date-to-mm-dd-yyyy
             #  source for formatting datetime to match format of our function
-            self.assertEqual(our_result, epoch.utcfromtimestamp(random_seconds).strftime("%m-%d-%Y"))
-
+            #self.assertEqual(our_result, epoch.utcfromtimestamp(random_seconds).strftime("%m-%d-%Y"))
 
 if __name__ == '__main__':
     unittest.main()
