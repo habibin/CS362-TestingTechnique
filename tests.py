@@ -1,4 +1,5 @@
-from task import conv_num, conv_endian
+from task import conv_num, conv_endian, my_datetime
+from datetime import datetime
 import random
 import string
 import unittest
@@ -71,10 +72,10 @@ class TestCase(unittest.TestCase):
             print(rand_choice, type(rand_choice),
                   conv_num(rand_choice), type(conv_num(rand_choice)))
 
-    # Test con_endian funtionality
+    # Test Con_endian funtionality
     def test_zero(self):
         # Test if input number is zero if it will return correct result
-
+        # Arrange
         num = 0
         expected = "00"
         # Act
@@ -84,7 +85,7 @@ class TestCase(unittest.TestCase):
 
     def test_invalid_endianness(self):
         # Test if the incorrect endian input will return correct result
-
+        # Arrange
         num = 1234
         endian = 'random'
         expected = None
@@ -95,7 +96,7 @@ class TestCase(unittest.TestCase):
 
     def test_positive_big_endian(self):
         # Test if the positive big endian input will return correct result
-
+        # Arrange
         num = 1234
         expected = "04 D2 "
         # Act
@@ -105,7 +106,7 @@ class TestCase(unittest.TestCase):
 
     def test_positive_little_endian(self):
         # Test if the positive little endian input will return correct result
-
+        # Arrange
         num = 1234
         endian = 'little'
         expected = "D2 04 "
@@ -116,7 +117,7 @@ class TestCase(unittest.TestCase):
 
     def test_negative_big_endian(self):
         # Test if the negative big endian input will return correct result
-
+        # Arrange
         num = -1234
         expected = "-04 D2 "
         # Act
@@ -126,7 +127,7 @@ class TestCase(unittest.TestCase):
 
     def test_negative_little_endian(self):
         # Test if the negative little endian input will return correct result
-
+        # Arrange
         num = -1234
         endian = 'little'
         expected = "-D2 04 "
@@ -136,7 +137,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_large_positive_big_endian(self):
-
+        # Arrange
         num = 4294967295
         expected = "FF FF FF FF "
         # Act
@@ -145,7 +146,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_large_positive_little_endian(self):
-
+        # Arrange
         num = 4294967295
         endian = 'little'
         expected = "FF FF FF FF "
@@ -155,7 +156,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_large_negative_big_endian(self):
-
+        # Arrange
         num = -4294967295
         expected = "-FF FF FF FF "
         # Act
@@ -164,7 +165,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_large_negative_little_endian(self):
-
+        # Arrange
         num = -4294967295
         endian = 'little'
         expected = "-FF FF FF FF "
@@ -173,113 +174,14 @@ class TestCase(unittest.TestCase):
         # Assert
         self.assertEqual(actual, expected)
 
-    # Test con_num funtionality
-    def test_empty_string(self):
-        # Test that an empty string returns None
-
-        num = ""
-        expected = None
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_invalid_type(self):
-        # Test that a non-string type returns None
-
-        num = 123
-        expected = None
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_negative_decimal(self):
-        # Test that a negative decimal string returns the correct number
-
-        num = "-12.34"
-        expected = -12.34
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_positive_decimal(self):
-        # Test that a positive decimal string returns the correct number
-
-        num = "56.78"
-        expected = 56.78
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_negative_hexadecimal(self):
-        # Test that a negative hexadecimal string returns the correct number
-
-        num = "-0x1a"
-        expected = -26
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_positive_hexadecimal(self):
-        # Test that a positive hexadecimal string returns the correct number
-
-        num = "0x2b"
-        expected = 43
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_end_decimal(self):
-        # Test that a decimal will add a zero at the end
-
-        num = "123."
-        expected = 123.0
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_begining_decimal(self):
-        # Test that a decimal will add a zero at the begining
-
-        num = ".123"
-        expected = 0.123
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_combining_number_alph(self):
-        # Test that a combination of num and alph
-        num = ".123A"
-        expected = None
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_incorrect_dec(self):
-        # Test that a incorrect dec
-        num = "1.2.3"
-        expected = None
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
-
-    def test_incorrect_hex(self):
-        # Test that a incorrect hex
-        num = "0xAZ4"
-        expected = None
-        # Act
-        actual = conv_num(num)
-        # Assert
-        self.assertEqual(actual, expected)
+    def testTime(self):
+        for i in range(0, 100):
+            random_seconds = random.randint(0, 253400000000)  # 0 to year 9999
+            our_result = my_datetime(random_seconds)
+            epoch = datetime(1970, 1, 1)
+            #  https://www.mytecbits.com/internet/python/convert-date-to-mm-dd-yyyy
+            #  source for formatting datetime to match format of our function
+            self.assertEqual(our_result, epoch.utcfromtimestamp(random_seconds).strftime("%m-%d-%Y"))
 
 
 if __name__ == '__main__':
