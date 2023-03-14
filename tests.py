@@ -189,7 +189,7 @@ class TestCase(unittest.TestCase):
 
     def test_invalid_type(self):
         # Test that a non-string type returns None
-        # Arrange
+
         num = 123
         expected = None
         # Act

@@ -122,7 +122,6 @@ def dec_check(num_str, index):
     return dec_count
 
 
-
 def my_datetime(num_sec):
     # convert the given number of seconds into number of days
     num_days = int(((num_sec / 60) / 60) / 24)
