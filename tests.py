@@ -1,4 +1,4 @@
-from task import conv_num
+from task import conv_num, conv_endian
 import random
 import string
 import unittest
@@ -61,6 +61,108 @@ class TestCase(unittest.TestCase):
             rand_choice = random.choice([random_float, dec_float, random_int, letter_number, '', 1])
 
             print(rand_choice, type(rand_choice), conv_num(rand_choice), type(conv_num(rand_choice)))
+
+    # Test Con_endian funtionality
+    def test_zero(self):
+        # Test if input number is zero if it will return correct result
+        # Arrange
+        num = 0
+        expected = "00"
+        # Act
+        actual = conv_endian(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_invalid_endianness(self):
+        # Test if the incorrect endian input will return correct result
+        # Arrange
+        num = 1234
+        endian = 'random'
+        expected = None
+        # Act
+        actual = conv_endian(num, endian)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_positive_big_endian(self):
+        # Test if the positive big endian input will return correct result
+        # Arrange
+        num = 1234
+        expected = "04 D2 "
+        # Act
+        actual = conv_endian(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_positive_little_endian(self):
+        # Test if the positive little endian input will return correct result
+        # Arrange
+        num = 1234
+        endian = 'little'
+        expected = "D2 04 "
+        # Act
+        actual = conv_endian(num, endian)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_negative_big_endian(self):
+        # Test if the negative big endian input will return correct result
+        # Arrange
+        num = -1234
+        expected = "-04 D2 "
+        # Act
+        actual = conv_endian(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_negative_little_endian(self):
+        # Test if the negative little endian input will return correct result
+        # Arrange
+        num = -1234
+        endian = 'little'
+        expected = "-D2 04 "
+        # Act
+        actual = conv_endian(num, endian)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_large_positive_big_endian(self):
+        # Arrange
+        num = 4294967295
+        expected = "FF FF FF FF "
+        # Act
+        actual = conv_endian(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_large_positive_little_endian(self):
+        # Arrange
+        num = 4294967295
+        endian = 'little'
+        expected = "FF FF FF FF "
+        # Act
+        actual = conv_endian(num, endian)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_large_negative_big_endian(self):
+        # Arrange
+        num = -4294967295
+        expected = "-FF FF FF FF "
+        # Act
+        actual = conv_endian(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_large_negative_little_endian(self):
+        # Arrange
+        num = -4294967295
+        endian = 'little'
+        expected = "-FF FF FF FF "
+        # Act
+        actual = conv_endian(num, endian)
+        # Assert
+        self.assertEqual(actual, expected)
 
 
 if __name__ == '__main__':
