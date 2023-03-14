@@ -4,8 +4,6 @@ import random
 import string
 import unittest
 
-
-
 class TestCase(unittest.TestCase):
 
     def test1(self):
@@ -183,6 +181,7 @@ class TestCase(unittest.TestCase):
             #  https://www.mytecbits.com/internet/python/convert-date-to-mm-dd-yyyy
             #  source for formatting datetime to match format of our function
             self.assertEqual(our_result, epoch.utcfromtimestamp(random_seconds).strftime("%m-%d-%Y"))
+
 
 if __name__ == '__main__':
     unittest.main()
