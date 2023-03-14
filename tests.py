@@ -71,7 +71,7 @@ class TestCase(unittest.TestCase):
             print(rand_choice, type(rand_choice),
                   conv_num(rand_choice), type(conv_num(rand_choice)))
 
-    # Test Con_endian funtionality
+    # Test con_endian funtionality
     def test_zero(self):
         # Test if input number is zero if it will return correct result
         # Arrange
@@ -170,6 +170,114 @@ class TestCase(unittest.TestCase):
         expected = "-FF FF FF FF "
         # Act
         actual = conv_endian(num, endian)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    # Test con_num funtionality
+    def test_empty_string(self):
+        # Test that an empty string returns None
+        # Arrange
+        num = ""
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_invalid_type(self):
+        # Test that a non-string type returns None
+        # Arrange
+        num = 123
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_negative_decimal(self):
+        # Test that a negative decimal string returns the correct number
+        # Arrange
+        num = "-12.34"
+        expected = -12.34
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_positive_decimal(self):
+        # Test that a positive decimal string returns the correct number
+        # Arrange
+        num = "56.78"
+        expected = 56.78
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_negative_hexadecimal(self):
+        # Test that a negative hexadecimal string returns the correct number
+        # Arrange
+        num = "-0x1a"
+        expected = -26
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_positive_hexadecimal(self):
+        # Test that a positive hexadecimal string returns the correct number
+        # Arrange
+        num = "0x2b"
+        expected = 43
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_end_decimal(self):
+        # Test that a decimal will add a zero at the end
+        # Arrange
+        num = "123."
+        expected = 123.0
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_begining_decimal(self):
+        # Test that a decimal will add a zero at the begining
+        # Arrange
+        num = ".123"
+        expected = 0.123
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_combining_number_alph(self):
+        # Test that a combination of num and alph
+        num = ".123A"
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_incorrect_dec(self):
+        # Test that a incorrect dec
+        num = "1.2.3"
+        expected = None
+        # Act
+        actual = conv_num(num)
+        # Assert
+        self.assertEqual(actual, expected)
+
+    def test_incorrect_hex(self):
+        # Test that a incorrect hex
+        num = "0xAZ4"
+        expected = None
+        # Act
+        actual = conv_num(num)
         # Assert
         self.assertEqual(actual, expected)
 
