@@ -35,15 +35,16 @@ class TestCase(unittest.TestCase):
             # inserts the letter at random location in the hexadecimal.
             letter_hex = choice1[:dec_pos] + letter + choice1[dec_pos:]
 
-            # random choice chooses one of the options randomly to test
+            # random choice chooses one of the options randomly to test, Pass
             rand_choice = random.choice([random_pos_hex.upper(),
                                          random_pos_hex.lower(),
                                          random_neg_hex.upper(),
-                                         random_neg_hex.lower(),
-                                         dec_hex, letter_hex])
+                                         random_neg_hex.lower()])
+            self.assertEqual(conv_num(rand_choice), int(rand_choice, 16))
 
-            print(rand_choice, type(rand_choice),
-                  conv_num(rand_choice), type(conv_num(rand_choice)))
+            # random choice chooses one of the options randomly to test, fail
+            rand_choice2 = random.choice([dec_hex, letter_hex])
+            self.assertEqual(conv_num(rand_choice2), None)
 
     def test2(self):
         # tests float numbers as strings
@@ -65,14 +66,15 @@ class TestCase(unittest.TestCase):
             letter = random.choice(string.ascii_letters)
             letter_number = choice1[:dec_pos] + letter + choice1[dec_pos:]
 
-            # random choice chooses one of the options randomly to test
-            rand_choice = random.choice([random_float, dec_float, random_int,
-                                         letter_number, '', 1])
+            # random choice chooses one of the options randomly to test, PASS
+            self.assertEqual(conv_num(random_int), int(random_int))
+            self.assertEqual(conv_num(random_float), float(random_float))
 
-            print(rand_choice, type(rand_choice),
-                  conv_num(rand_choice), type(conv_num(rand_choice)))
+            # random choice chooses one of the options randomly to test, Fail
+            rand_choice = random.choice([dec_float, letter_number, '', 1])
+            self.assertEqual(conv_num(rand_choice), None)
 
-    # Test Con_endian funtionality
+    # Test Con_endian functionality
     def test_zero(self):
         # Test if input number is zero if it will return correct result
         # Arrange
