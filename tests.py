@@ -4,6 +4,7 @@ import random
 import string
 import unittest
 
+
 class TestCase(unittest.TestCase):
 
     def test1(self):
