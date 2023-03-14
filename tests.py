@@ -178,7 +178,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_empty_string(self):
-    # Test that an empty string returns None
+        # Test that an empty string returns None
         # Arrange
         num = ""
         expected = None
@@ -293,6 +293,7 @@ class TestCase(unittest.TestCase):
             #  https://www.mytecbits.com/internet/python/convert-date-to-mm-dd-yyyy
             #  source for formatting datetime to match format of our function
             self.assertEqual(our_result, epoch.utcfromtimestamp(random_seconds).strftime("%m-%d-%Y"))
+
 
 if __name__ == '__main__':
     unittest.main()
