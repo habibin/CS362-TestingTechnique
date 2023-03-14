@@ -1,7 +1,9 @@
-from task import conv_num, conv_endian
+from task import conv_num, conv_endian, my_datetime
+from datetime import datetime
 import random
 import string
 import unittest
+
 
 
 class TestCase(unittest.TestCase):
@@ -173,6 +175,14 @@ class TestCase(unittest.TestCase):
         # Assert
         self.assertEqual(actual, expected)
 
+    def testTime(self):
+        for i in range(0, 100):
+            random_seconds = random.randint(0, 253400000000)  # 0 to year 9999
+            our_result = my_datetime(random_seconds)
+            epoch = datetime(1970, 1, 1)
+            #  https://www.mytecbits.com/internet/python/convert-date-to-mm-dd-yyyy
+            #  source for formatting datetime to match format of our function
+            self.assertEqual(our_result, epoch.utcfromtimestamp(random_seconds).strftime("%m-%d-%Y"))
 
 if __name__ == '__main__':
     unittest.main()
