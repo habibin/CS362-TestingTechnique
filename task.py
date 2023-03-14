@@ -1,5 +1,6 @@
 def conv_num(num_str):
-    """function takes in a string and converts it into a base 10 number, and returns it"""
+    """function takes in a string and converts it into a base 10 number,
+    and returns it"""
 
     # returns None if num_str is not string type of if it is empty string
     if type(num_str) != str or num_str == '':
@@ -12,7 +13,8 @@ def conv_num(num_str):
     # checks if string is a hexadecimal by seeing if it starts with 0x
     if num_str[index] == "0":
         if num_str[index + 1].lower() == "x":
-            # the index tells the function helper where to stop converting the index in the string
+            # the index tells the function helper where to
+            # stop converting the index in the string
             index += 1
             # function helper is called when the string is a hexadecimal
             return hex_check(num_str, index)
@@ -22,11 +24,13 @@ def conv_num(num_str):
 
 def hex_check(num_str, index):
     # dictionary key=hex:value=decimal
-    base_16 = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
-               '9': 9, 'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15}
+    base_16 = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
+               '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11,
+               'C': 12, 'D': 13, 'E': 14, 'F': 15}
 
     exp = 0  # exponent that will be raised to the base 16
-    total = 0  # will keep track of the total when each index in the string is added
+    total = 0  # will keep track of the total
+    # when each index in the string is added
 
     # loops from the last position in the string to index in reverse
     for pos in range((len(num_str) - 1), index, -1):
@@ -57,12 +61,16 @@ def hex_check(num_str, index):
 def float_check(num_str, index):
 
     # dictionary key=str:value=float
-    digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+    digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4,
+              '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
 
     total = 0
-    before_dec = .0  # will keep track of the total when each index in the string is added
-    dec_count = dec_check(num_str, index)  # if a decimal is present, at the end total * 10**dec_count
-    decimal_check = 'no'  # Once decimal is found, variable will be set to "yes" so there isn't
+    before_dec = .0  # will keep track of the total when
+    # each index in the string is added
+    dec_count = dec_check(num_str, index)  # if a decimal is present,
+    # at the end total * 10**dec_count
+    decimal_check = 'no'
+    # Once decimal is found, variable will be set to "yes" so there isn't
     # 2 decimals in the string
 
     # loops from the last position in the string to index in reverse
@@ -73,7 +81,8 @@ def float_check(num_str, index):
         if key == '.':
             # checks if there's already been a decimal
             if decimal_check == 'no':
-                # changes variable to yes, so if another decimal is found, it will return None
+                # changes variable to yes, so if another decimal is found,
+                # it will return None
                 decimal_check = 'yes'
                 # finds where the decimal should be placed in the float
                 before_dec = total
@@ -124,7 +133,8 @@ def dec_check(num_str, index):
 def my_datetime(num_sec):
     # convert the given number of seconds into number of days
     num_days = int(((num_sec / 60) / 60) / 24)
-    # initialize the starting date and dictionary of how many days are in each month
+    # initialize the starting date and dictionary of
+    # how many days are in each month
     curr_month = 1
     curr_day = 1
     curr_year = 1970
@@ -167,14 +177,16 @@ def conv_endian(num, endian='big'):
         return None
     byte_list = []
     negative = False
-    hex_table = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8',
-                 9: '9', 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
+    hex_table = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5',
+                 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
+                 12: 'C', 13: 'D', 14: 'E', 15: 'F'}
     if num < 0:
         negative = True
     num = abs(num)
 
     # convert number to hex
-    # source for how to do conversion https://www.permadi.com/tutorial/numDecToHex/
+    # source for how to do conversion
+    # https://www.permadi.com/tutorial/numDecToHex/
     while num != 0:
         remainder = num % 16
         byte_list.append(hex_table[remainder])
